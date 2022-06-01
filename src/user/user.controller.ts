@@ -1,12 +1,12 @@
 //contains crud operations
 
-import { Controller, Delete, Get, Param, Post, Put, Body, Patch } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Put, Body } from '@nestjs/common';
 import { user_interface } from './user.interface';
-import { user_service } from './user.service';
+import { UserService } from './user.service';
   
  @Controller('users')
-export class user_controller {
-  constructor(private userService: user_service) {}
+export class UserController {
+  constructor(private userService: UserService) {}
   
   //readall
   @Get()
@@ -32,6 +32,7 @@ export class user_controller {
   @Get(':id')
     async readUser(@Param('id') id: number) {
       const data = await this.userService.read(id);
+      console.log(data);
       return {
         message: 'User fetched successfully',
         data,
@@ -57,3 +58,5 @@ export class user_controller {
       };
     }
   }
+
+  //chanfe name

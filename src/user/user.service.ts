@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { user_table } from 'src/entities/usecase1.user'; 
+import { UserTable } from 'src/entities/usecase1.user'; 
 import { user_interface } from './user.interface';
 
 @Injectable()
-export class user_service {
+export class UserService {
   constructor(
-    @InjectRepository(user_table)
-    private userRepository: Repository <user_table>,
+    @InjectRepository(UserTable)
+    private userRepository: Repository <UserTable>,
   ) {}
 
   showAll() {
@@ -21,7 +21,7 @@ export class user_service {
     return user;
   }
   read(id: number) {
-    return this.userRepository.findOne({ where: { id: id } });
+    return this.userRepository.findOne({id});
   }
 
   update(id: number, data: Partial <user_interface>) {

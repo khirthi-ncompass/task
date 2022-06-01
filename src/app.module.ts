@@ -4,24 +4,23 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { user_controller } from './user/user.controller';
-import { user_service } from './user/user.service';
+import { UserTable } from './entities/usecase1.user';
 import { UsersModule } from './user/user.module'; 
-import { user_table } from './entities/usecase1.user';
-
+import 'dotenv/config'
+console.log(process.env.DB_HOST);
 
 @Module({
-  imports: [user_table, TypeOrmModule.forRoot({
+  imports: [ TypeOrmModule.forRoot({
     type:'mysql',
-    host:'l1-swift.ctqnawjozhfg.ap-southeast-2.rds.amazonaws.com',
-    username:"khirthi2",
-    password:"test",
-    database:"khirthi",
-    port:3306,
-    entities:[user_table],
+    host: process.env.DB_HOST,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    port: 3306,
+    entities:[UserTable],
     synchronize:true
- }), UsersModule, TypeOrmModule.forFeature([user_table])],
-  controllers: [AppController, user_controller],
-  providers: [AppService, user_service],
+ }), UsersModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
