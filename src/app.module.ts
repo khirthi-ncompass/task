@@ -2,25 +2,25 @@
 
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UserTable } from './entities/usecase1.user';
-import { UsersModule } from './user/user.module'; 
-import 'dotenv/config'
-console.log(process.env.DB_HOST);
+import { AuthModule } from './auth/auth.module';
+import 'dotenv/config';
+import { UsersModule } from './user/user.module';
+import { User } from './entities/usecase1.user';
 
 @Module({
-  imports: [ TypeOrmModule.forRoot({
-    type:'mysql',
-    host: process.env.DB_HOST,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    port: 3306,
-    entities:[UserTable],
-    synchronize:true
- }), UsersModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: 3306,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      entities: [User],
+      synchronize: true,
+    }),
+    UsersModule,
+    AuthModule,
+  ],
 })
 export class AppModule {}

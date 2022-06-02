@@ -1,15 +1,22 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+
+import { Exclude } from 'class-transformer';
+import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 
-@Entity()
-export class UserTable {
+@Entity('users')
+export class User extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @Column()
+  name: string;
 
-    @Column()
-    name: string
+  @Column({
+    nullable: false,
+  })
+  email: string;
 
-    @Column()
-    email: string
+  @Exclude()
+  @Column()
+  password: string;
 }
