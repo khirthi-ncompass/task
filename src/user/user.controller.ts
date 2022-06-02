@@ -83,7 +83,7 @@ export class UsersController {
   async updateUser(@Param('id') id: number, @Body() data: Partial<UsersDto>) {
     const isUpdated = await this.userService.update(id, data);
     if (!isUpdated) {
-      throw new BadRequestException('User doesnt exist, what are you trying to accomplish,   you cunt?');
+      throw new BadRequestException('User doesnt exist');
     }
     const user = await this.userService.read(id);
     delete user.password;
